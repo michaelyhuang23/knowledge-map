@@ -1,4 +1,7 @@
 import styles from '../styles/Map.module.css'
+import Nodes from './Nodes';
+import Edges from './Edges';
+import { useState } from 'react';
 
 const Map = ({x,setX,y,setY,width,height,zoom,setZoom}) => {
 
@@ -83,29 +86,29 @@ const Map = ({x,setX,y,setY,width,height,zoom,setZoom}) => {
         }
     ];
 
-    zwidth = width / zoom;
-    zheight = height / zoom;
+    let zwidth = width / zoom;
+    let zheight = height / zoom;
     const [dragging, setDragging] = useState(false);
     const [dragX, setDragX] = useState(0);
     const [dragY, setDragY] = useState(0);
-    mouseDown = (e) => {
+    const mouseDown = (e) => {
         setDragging(true);
         setDragX(e.clientX);
         setDragY(e.clientY);
     }
-    mouseMove = (e) => {
+    const mouseMove = (e) => {
         if(!dragging) return;
         const dx = e.clientX - dragX;
         const dy = e.clientY - dragY;
         setX(x - dx / zoom);
         setY(y - dy / zoom);
     }
-    mouseUp = () => {
+    const mouseUp = () => {
         setDragging(false);
         setDragX(0);
         setDragY(0);
     }
-    mouseScroll = (e) => {
+    const mouseScroll = (e) => {
         e.preventDefault();
         if(dragging) return;
         const delta = e.deltaY * -0.01;
